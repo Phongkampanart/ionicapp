@@ -38,6 +38,7 @@ buttonName : string;
     });
 
     await alert.present();
+
   }
 
 }
