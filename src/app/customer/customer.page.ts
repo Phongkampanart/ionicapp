@@ -49,7 +49,7 @@ export class CustomerPage implements OnInit {
     console.log('input_address: ' + this.input_address);
     console.log('input_tel: ' + this.input_tel);
 
-    axios.post('http://localhost/ionicserver/register_profiles.php',{
+    axios.post('http://localhost/ionicserver/get_customer.php',{
       id: this.input_id,
       name: this.input_name,
       lastname: this.input_lastname,
