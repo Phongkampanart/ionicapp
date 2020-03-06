@@ -7,12 +7,11 @@ import axios from 'axios';
   styleUrls: ['./customer.page.scss'],
 })
 export class CustomerPage implements OnInit {
-
-  id:string;
-  name: string;
-  lastname: string;
-  address: string;
-  tel: string;
+  c_id: string;
+  c_name: string;
+  c_lastname: string;
+  c_address: string;
+  c_tel: string;
 
   input_id: string;
   input_name: string;
@@ -20,52 +19,80 @@ export class CustomerPage implements OnInit {
   input_address: string;
   input_tel: string;
 
+  customers: any;
+
   constructor() { }
 
-  ngOnInit()  {
+  ngOnInit() {
+    this.loaddata();
     axios.get('http://localhost/ionicserver/get_customer.php').then((response) => {
-      //handle success
-        console.log(response.data);
-        this.id = response.data[0].id;
-        this.name = response.data[0].name;
-        this.lastname = response.data[0].lastname;
-        this.address = response.data[0].address;
-        this.tel = response.data[0].tel;
 
-      })
+      console.log(response.data);
+      this.c_id = response.data[0].c_id;
+      this.c_name = response.data[0].c_name;
+      this.c_lastname = response.data[0].c_lastname;
+      this.c_address = response.data[0].c_address;
+      this.c_tel = response.data[0].c_tel;
+
+    })
       .catch((error) => {
-        // handle error
-          console.log(error);
+
+        console.log(error);
       })
       .then(() => {
-        //always executed
+
       });
   }
+  register() {
+    console.log('input_id:' + this.input_id);
+    console.log('input_name:' + this.input_name);
+    console.log('input_lastname:' + this.input_lastname);
+    console.log('input_address:' + this.input_address);
+    console.log('input_tel:' + this.input_tel);
 
-  register(){
-    console.log('input_id: ' + this.input_id);
-    console.log('input_name: ' + this.input_name);
-    console.log('input_lastname: ' + this.input_lastname);
-    console.log('input_address: ' + this.input_address);
-    console.log('input_tel: ' + this.input_tel);
-
-    axios.post('http://localhost/ionicserver/get_customer.php',{
-      id: this.input_id,
-      name: this.input_name,
-      lastname: this.input_lastname,
-      address: this.input_address,
+    axios.post('http://localhost/ionicserver/add_customer.php', {
+      c_id: this.input_id,
+      c_name: this.input_name,
+      c_lastname: this.input_lastname,
+      c_address: this.input_address,
+      c_tel: this.input_tel
     }).then((response) => {
       console.log(response);
+
       this.input_id = '';
       this.input_name = '';
       this.input_lastname = '';
       this.input_address = '';
       this.input_tel = '';
+
     }).catch((error) => {
       console.log(error);
     });
+  }
+  delete_data(id: any) {
+    console.log(id);
 
-    
+    axios.get('http://localhost/ionicserver/delete_customer.php?id=' + id)
+      .then(() => {
+        console.log("ลบข้อมูลเรียบร้อย");
+        this.loaddata();
+      });
   }
 
+  loaddata() {
+    axios.get('http://localhost/ionicserver/get_customer.php').then((response) => {
+
+      console.log(response.data);
+
+      this.customers = response.data;
+
+    })
+      .catch((error) => {
+
+        console.log(error);
+      })
+      .then(() => {
+
+      });
+  }
 }
