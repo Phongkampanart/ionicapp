@@ -6,4 +6,21 @@
 
 <ion-content>
 
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-title>สมัครสมาชิกลูกค้า</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item *ngFor="let data of customers">
+        {{ data.name }} {{ data.lastname }} {{ data.detail }}
+        <ion-button color="danger" (click)="delete_data(data.id)">X</ion-button>
+      </ion-item>
+     </ion-card-content>
+   </ion-card>
+
+   <ion-button color="success" (click)="loaddata()"> Loaddata </ion-button>
+
+
 </ion-content>
