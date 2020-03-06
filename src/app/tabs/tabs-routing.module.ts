@@ -38,16 +38,6 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'product',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../product/product.module').then(m => m.ProductPageModule)
-          }
-        ]
-      },
-      {
         path: 'about',
         children: [
           {
@@ -57,7 +47,6 @@ const routes: Routes = [
           }
         ]
       },
-      
       {
         path: 'profile',
         children: [
@@ -70,6 +59,16 @@ const routes: Routes = [
       },
 
       {
+        path: 'product',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../product/product.module').then(m => m.ProductPageModule)
+          }
+        ]
+      },
+      {
         path: 'customer',
         children: [
           {
@@ -79,7 +78,6 @@ const routes: Routes = [
           }
         ]
       },
-        
       {
         path: '',
         redirectTo: '/tabs/tab1',
